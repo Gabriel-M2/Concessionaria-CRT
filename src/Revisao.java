@@ -49,7 +49,7 @@ public class Revisao extends JPanel {
 
     static Carrinho carrinho = new Carrinho();
 
-    static DefaultTableModel dtm = (DefaultTableModel) carrinho.table.getModel();
+
 
 
 
@@ -326,9 +326,7 @@ public class Revisao extends JPanel {
                             carrinho.jpCarrinho.setVisible(true);
                             jpRevisao.setVisible(false);
 
-
-                            dtm.addRow(new Object[] {Carro,qntd,subTotal,(qntd * subTotal )});// linhas 114 a 116 adicionam uma linha na tabela
-
+                            Main.dtm.addRow(new Object[] {Carro,qntd,subTotal,(qntd * subTotal )});// linhas 114 a 116 adicionam uma linha na tabela
                             qntdCarro1 -= qntd;
                         }else {
                             JOptionPane.showMessageDialog(null,"Infelizmento só temos "+qntdCarro1+" desse modelo :(");
@@ -342,9 +340,7 @@ public class Revisao extends JPanel {
                             carrinho.jpCarrinho.setVisible(true);
                             jpRevisao.setVisible(false);
 
-                            DefaultTableModel dtm = (DefaultTableModel) Carrinho.table.getModel();
-                            dtm.addRow(new Object[] {Carro,qntd,subTotal,(qntd * subTotal )});// linhas 114 a 116 adicionam uma linha na tabela
-
+                            Main.dtm.addRow(new Object[] {Carro,qntd,subTotal,(qntd * subTotal )});// linhas 114 a 116 adicionam uma linha na tabela
                             qntdCarro2 -= qntd;
                         }else {
                             JOptionPane.showMessageDialog(null,"Infelizmento só temos "+qntdCarro1+" desse modelo :(");
@@ -357,9 +353,7 @@ public class Revisao extends JPanel {
                             carrinho.jpCarrinho.setVisible(true);
                             jpRevisao.setVisible(false);
 
-//                            DefaultTableModel dtm = (DefaultTableModel) Carrinho.table.getModel();
-                            dtm.addRow(new Object[] {Carro,qntd,subTotal,(qntd * subTotal )});// linhas 114 a 116 adicionam uma linha na tabela
-
+                            Main.dtm.addRow(new Object[] {Carro,qntd,subTotal,(qntd * subTotal )});// linhas 114 a 116 adicionam uma linha na tabela
                             qntdCarro3 -= qntd;
                         }else {
                             JOptionPane.showMessageDialog(null,"Infelizmento só temos "+qntdCarro1+" desse modelo :(");
@@ -369,6 +363,9 @@ public class Revisao extends JPanel {
 
             }
         });
+
+
+
 
     }
 

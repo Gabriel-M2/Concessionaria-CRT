@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CheckOut {
 
@@ -13,13 +15,23 @@ public class CheckOut {
 
     static JRadioButton rbCredito, rbDebito, rbPix;
     static ButtonGroup btgRB;
-    static  JTextField tfNums;
+
+    static  JTextField tfNum = new JTextField();
+
+    static JButton btnProsseguir, btnVoltar;
+
+    static ImageIcon imgFinalizar, imgVoltar3;
     
 
 
     public static void TlCheckOut(){
 
-
+        try {
+            imgFinalizar = new ImageIcon(CheckOut.class.getResource("img/btnFinalizar.png"));
+            imgVoltar3 = new ImageIcon(CheckOut.class.getResource("img/btnVoltar3.png"));
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
 
         jpCheckOut = new JPanel(null);
         jpCheckOut.setBounds(0,0,1200,700);
@@ -144,10 +156,115 @@ public class CheckOut {
         jpTitulo1.add(lbTitulo);
 
         rbCredito = new JRadioButton("Crédito");
-        rbCredito.setBounds(30,504,138,26);
+        rbCredito.setBounds(32,480,138,26);
         rbCredito.setFont(new Font("Poppins",Font.BOLD, 20));
-        jpCheckOut.add(rbCredito);
-        
+        rbCredito.setBackground(Color.WHITE);
+        jpEntrega.add(rbCredito);
+
+        rbDebito = new JRadioButton("Débito");
+        rbDebito.setBounds(217,480,138,26);
+        rbDebito.setFont(new Font("Poppins",Font.BOLD, 20));
+        rbDebito.setBackground(Color.WHITE);
+        jpEntrega.add(rbDebito);
+
+        rbPix = new JRadioButton("Pix");
+        rbPix.setBounds(398,480,138,26);
+        rbPix.setFont(new Font("Poppins",Font.BOLD, 20));
+        rbPix.setBackground(Color.WHITE);
+        jpEntrega.add(rbPix);
+
+        ButtonGroup btgPag = new ButtonGroup();
+
+       btgPag.add(rbCredito);
+       btgPag.add(rbDebito);
+       btgPag.add(rbPix);
+
+
+        tfNum = new JTextField();
+        tfNum.setBounds(552,475,216,49);
+        tfNum.setBorder(BorderFactory.createMatteBorder(2,2,2,2,new Color(97, 94, 94,92)));
+        tfNum.setFont(new Font("Poppins",Font.PLAIN,14));
+        jpEntrega.add(tfNum);
+        tfNum.setVisible(false);
+
+
+
+
+        btnProsseguir = new JButton(imgFinalizar);
+        btnProsseguir.setBounds(893,262,262,50);
+        btnProsseguir.setContentAreaFilled(false);
+        btnProsseguir.setBorder(BorderFactory.createMatteBorder(0,0,0,0,Color.WHITE));
+        btnProsseguir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        jpCheckOut.add(btnProsseguir);
+
+        btnVoltar = new JButton(imgVoltar3);
+        btnVoltar.setBounds(893,468,262,50);
+        btnVoltar.setContentAreaFilled(false);
+        btnVoltar.setBorder(BorderFactory.createMatteBorder(0,0,0,0,Color.WHITE));
+        btnVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        jpCheckOut.add(btnVoltar);
+
+       Eventos();
+    }
+
+    public static void Eventos(){
+       rbCredito.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               tfNum.setVisible(true);
+           }
+       });
+
+        rbDebito.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tfNum.setVisible(true);
+            }
+        });
+
+        rbPix.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+
+        btnProsseguir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selecionado = "";
+
+                if (rbCredito.isSelected()){
+                    selecionado = "Crédito";
+                }else if (rbDebito.isSelected()){
+                    selecionado = "Débito";
+                }else if (rbPix.isSelected()){
+                    selecionado = "Pix";
+                }
+
+
+                if (tfNum.getText() != "" && tfNome.getText() != "" && tfSobreNome.getText() != "" && tfEndereco.getText() != "" && tfCidade.getText() != "" && tfEstado.getText() != "" && tfCEP.getText() != "" && tfEmail.getText() != "" && tfTelefone.getText() != ""){
+                    JOptionPane.showMessageDialog(null,"" +
+                            "Nome: "+tfNome.getText() + tfSobreNome.getText()+"\n" +
+                            "Endereço: "+tfEndereco.getText()+"\n" +
+                            "Cidade e Estado:"+tfEstado.getText()+" " + tfCidade.getText()+"\n" +
+                            "CEP: "+tfCEP.getText()+"\n" +
+                            "Email: "+tfEmail.getText()+"\n" +
+                            "Telefone: "+tfTelefone.getText()+"\n" +
+                            "Método de Pag. :"+selecionado);
+                }
+            }
+        });
+
+        btnVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jpCheckOut.setVisible(false);
+                Catalogo.Carro1.setVisible(true);
+            }
+        });
+
     }
 
 

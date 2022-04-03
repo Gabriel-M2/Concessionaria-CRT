@@ -248,7 +248,9 @@ public class Catalogo extends JPanel {
         Carro2.add(btnSetaBaixoC2);
         Carro3.add(btnSetaCimaC3);
 
-
+        btnCarrinho.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnCarrinho2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnCarrinho3.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
     }
@@ -285,19 +287,38 @@ public class Catalogo extends JPanel {
             Revisao.jpRevisao.setVisible(true);
         });
 
-//        Revisao.jcbModelo.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Revisao.Calc();
-//            }
-//        });
+        btnCarrinho.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Carro1.setVisible(false);
+                Carrinho carrinho = new Carrinho();
+                carrinho.TlCarrinho();
+                carrinho.jpCarrinho.setVisible(true);
+                Main.jpPrincipal.add(carrinho.jpCarrinho);
+            }
+        });
 
-//        Revisao.jcbOpcionais.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                Revisao.Calc();
-//            }
-//        });
+        btnCarrinho2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Carro2.setVisible(false);
+                Carrinho carrinho = new Carrinho();
+                carrinho.TlCarrinho();
+                carrinho.jpCarrinho.setVisible(true);
+                Main.jpPrincipal.add(carrinho.jpCarrinho);
+            }
+        });
+
+        btnCarrinho3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Carro3.setVisible(false);
+                Carrinho carrinho = new Carrinho();
+                carrinho.TlCarrinho();
+                carrinho.jpCarrinho.setVisible(true);
+                Main.jpPrincipal.add(carrinho.jpCarrinho);
+            }
+        });
 
 
 

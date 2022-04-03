@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Main extends JPanel {
@@ -21,6 +24,24 @@ public class Main extends JPanel {
     JButton btnSigIn;
 
     JButton btnJaTenhoLogin;
+
+//    static JTable table;
+
+    static JPanel pnTable;
+    static JScrollPane scrollTable;
+
+    static DefaultTableModel tableModel = new DefaultTableModel(
+            new String[] {"Produto", "Qtde", "Preço Un.", "Total" },0) { //cria o layout da tabela , os itens do vetor são os nomes da coluna, o 0 indica que a tabela saíra sem nenhuma linha
+        public boolean isCellEditable(int row, int col) { //método para dizer se a celula será editavel ou não
+            if (col == 3) {
+                return false;
+            }
+            return true;
+        }
+
+    };
+    static JTable table = new JTable(tableModel);
+    static DefaultTableModel dtm = (DefaultTableModel) table.getModel();
 
     public Main() {
         inicializar();
@@ -107,6 +128,39 @@ public class Main extends JPanel {
         btnJaTenhoLogin.setBorder(BorderFactory.createMatteBorder(0,0,0,0,Color.WHITE));
         btnJaTenhoLogin.setContentAreaFilled(false);
         jpCadastro.add(btnJaTenhoLogin);
+
+
+        pnTable = new JPanel(new BorderLayout());
+        pnTable.setBorder(new TitledBorder("Itens do Pedido"));//linhas 64 e 65 definem a borda do painel , com o nome dele (nesse caso itens do pedido)
+        scrollTable = new JScrollPane();
+
+
+        DefaultTableCellRenderer alinhaDireita = new DefaultTableCellRenderer();
+
+
+        table.getColumnModel().getColumn(0).setPreferredWidth(250); //define o tamanho da coluna
+        table.getColumnModel().getColumn(0).setResizable(false);//define se a coluna é editavel ou não ;
+        table.getColumnModel().getColumn(1).setPreferredWidth(50);
+        table.getColumnModel().getColumn(1).setResizable(false);
+        table.getColumnModel().getColumn(1).setCellRenderer(alinhaDireita);//alinha o conteúdo da ceula a direita;
+        table.getColumnModel().getColumn(2).setPreferredWidth(250);
+        table.getColumnModel().getColumn(2).setResizable(false);
+        table.getColumnModel().getColumn(2).setCellRenderer(alinhaDireita);
+        table.getColumnModel().getColumn(3).setPreferredWidth(250);
+        table.getColumnModel().getColumn(3).setResizable(false);
+        table.getColumnModel().getColumn(3).setCellRenderer(alinhaDireita);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);// linhas 97 e 98 define que as colunas não podem ser reorganizadas com arraste e solte
+
+        scrollTable.setViewportView(Main.table);
+        pnTable.add(scrollTable);
+        pnTable.setBounds(156 ,147, 911, 403);
+
+        pnTable.setBackground(Color.WHITE);
+
+
+
+
     }
 
     public void Eventos() {
@@ -117,22 +171,24 @@ public class Main extends JPanel {
 
         btnSigIn.addActionListener(e -> {
 
-//            if (tfLogin.getText().equalsIgnoreCase("Nome/E-Mail") || tfPass.getText().equalsIgnoreCase("Senha")) {
-//                JOptionPane.showMessageDialog(null, "    Tente escrever algo ;)");
-//            } else {
-//                if (tfPass.getText().length() <8){
-//                    JOptionPane.showMessageDialog(null,"A senha deve ter ao menos 8 caracteres!");
-//                }else {
-//                    if (tfPass.getText().equalsIgnoreCase(tfCPass.getText())) {
+            if (tfLogin.getText().equalsIgnoreCase("Nome/E-Mail") || tfPass.getText().equalsIgnoreCase("Senha")) {
+                JOptionPane.showMessageDialog(null, "    Tente escrever algo ;)");
+            } else {
+                if (tfPass.getText().length() <8){
+                    JOptionPane.showMessageDialog(null,"A senha deve ter ao menos 8 caracteres!");
+                }else {
+                    if (tfPass.getText().equalsIgnoreCase(tfCPass.getText())) {
                         jpCadastro.setVisible(false);
-//                        NewUser(tfLogin.getText(), tfCPass.getText());
-                       jpPrincipal.add(Catalogo.Carro1);
-//
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "As senhas devem ser iguais!");
-//                    }
-//                }
-//            }
+                        Login.Login.setVisible(true);
+                        jpPrincipal.add(Login.Login);
+
+                        NewUser(tfLogin.getText(), tfCPass.getText());
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "As senhas devem ser iguais!");
+                    }
+                }
+            }
 
 
             Catalogo.btnSetaBaixoC1.addActionListener(f -> {
@@ -170,20 +226,6 @@ public class Main extends JPanel {
                 );
             });
         });
-
-//       try {
-//           Catalogo catalogo = new Catalogo();
-//           catalogo.btnTenhoInteresseC1.addActionListener(new ActionListener() {
-//               @Override
-//               public void actionPerformed(ActionEvent e) {
-//                   Catalogo.Carro1.setVisible(false);
-//                   jpCadastro.add(Revisao.jpRevisao);
-//               }
-//           });
-//       }catch (Exception e){
-//           System.out.println(e.getMessage());
-//       }
-
 
         btnJaTenhoLogin.addActionListener(new ActionListener() {
             @Override

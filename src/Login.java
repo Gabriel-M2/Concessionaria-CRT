@@ -95,7 +95,22 @@ public class Login extends JPanel {
                 Login.setVisible(false);
             }
         });
+
+        btnSigIn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+//                Usuarios usuario = new Usuarios();
+//                if (tfLogin2.getText().equalsIgnoreCase(usuario.getUser()) && tfPass2.getText().equalsIgnoreCase(usuario.getSenha())){
+//                    Login.setVisible(false);
+//                    jpPrincipal.add(Catalogo.Carro1);
+//                }else{
+//                    JOptionPane.showMessageDialog(null,"Usuário ou senha inválidos");
+//                }
+            }
+        });
     }
+
 
 
 
